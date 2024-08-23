@@ -1,8 +1,8 @@
-const { Thought, } = require('../Models/thought');
+const { Thought, } = require('../Models');
 
 module.exports = {
   // Get all thoughts
-  async getThoughts(req, res) {
+  async getAllThoughts(req, res) {
     try {
       const thoughts = await Thought.find()
         .populate('reactions');
@@ -13,7 +13,7 @@ module.exports = {
   },
 
   // Get a single thought by ID
-  async getSingleThought(req, res) {
+  async getThoughtById(req, res) {
     try {
       const thought = await Thought.findOne({ _id: req.params.thoughtId })
         .populate('reactions');
@@ -40,7 +40,7 @@ module.exports = {
   },
 
   // Delete a thought by ID
-  async deleteThought(req, res) {
+  async deleteThoughtById(req, res) {
     try {
       const thought = await Thought.findOneAndDelete({ _id: req.params.thoughtId });
 
@@ -55,7 +55,7 @@ module.exports = {
   },
 
   // Update a thought by ID
-  async updateThought(req, res) {
+  async updateThoughtById(req, res) {
     try {
       const thought = await Thought.findOneAndUpdate(
         { _id: req.params.thoughtId },

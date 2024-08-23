@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
+const Reaction = require('./Reaction');
 const { Schema } = mongoose;
+
 
 // Define the Thought schema
 const thoughtSchema = new Schema(
@@ -19,7 +21,12 @@ const thoughtSchema = new Schema(
       type: String,
       required: true
     },
-    reactions: [reactionSchema] // Array of nested documents
+    reactions: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: "Reaction"
+        }
+    ] // Array of nested documents
   },
   {
     toJSON: {
