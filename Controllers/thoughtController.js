@@ -1,4 +1,4 @@
-const { Thought, } = require('../Models');
+const { Thought } = require('../Models');
 
 module.exports = {
   // Get all thoughts
@@ -15,7 +15,7 @@ module.exports = {
   // Get a single thought by ID
   async getThoughtById(req, res) {
     try {
-      const thought = await Thought.findOne({ _id: req.params.thoughtId })
+      const thought = await Thought.findOne({ _id: req.params.id })
         .populate('reactions');
 
       if (!thought) {
@@ -42,7 +42,7 @@ module.exports = {
   // Delete a thought by ID
   async deleteThoughtById(req, res) {
     try {
-      const thought = await Thought.findOneAndDelete({ _id: req.params.thoughtId });
+      const thought = await Thought.findOneAndDelete({ _id: req.params.id });
 
       if (!thought) {
         return res.status(404).json({ message: 'No thought with that ID' });
@@ -77,7 +77,7 @@ module.exports = {
   async addReaction(req, res) {
     try {
       const thought = await Thought.findOneAndUpdate(
-        { _id: req.params.thoughtId },
+        { _id: req.params.id },
         { $addToSet: { reactions: req.body } },
         { new: true, runValidators: true }
       ).populate('reactions');
@@ -96,7 +96,7 @@ module.exports = {
   async removeReaction(req, res) {
     try {
       const thought = await Thought.findOneAndUpdate(
-        { _id: req.params.thoughtId },
+        { _id: req.params.id },
         { $pull: { reactions: { _id: req.params.reactionId } } },
         { new: true }
       ).populate('reactions');

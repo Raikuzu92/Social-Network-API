@@ -23,7 +23,7 @@ const thoughtSchema = new Schema(
     },
     reactions: [
         {
-            type: Schema.Types.ObjectId,
+            type:  [Reaction.schema],
             ref: "Reaction"
         }
     ] // Array of nested documents
